@@ -31,6 +31,7 @@
 
 - (void)showAction:(UIButton *)sender {
     TestActionSheet *sheet = [[TestActionSheet alloc] init];
+//    [sheet addKeyboardNotificationObserver];
     [sheet addGestrue];
     [sheet show];
 }

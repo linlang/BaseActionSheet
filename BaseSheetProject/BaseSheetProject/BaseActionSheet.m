@@ -21,6 +21,7 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:[UIScreen mainScreen].bounds];
     if(self) {
+        NSAssert(![self isMemberOfClass:[BaseActionSheet class]], @"BaseActionSheet是个虚基类，请子类化后使用");
         [self commonInit];
         [self createBaseActionSheetBaseView];
     }
@@ -30,6 +31,10 @@
 - (id)init {
     self = [self initWithFrame:CGRectZero];
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -119,6 +124,48 @@
 
 - (void)addGestrue {
     [self.blureView addGestureRecognizer:self.tapGesture];
+}
+
+- (void)addKeyboardNotificationObserver {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+#pragma mark - event response
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    NSDictionary *userInfo = notification.userInfo;
+    CGRect rect = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    double duration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    UIView *firstResponderView = [self getFirstResponderView];
+    CGRect frFrame = [firstResponderView.superview convertRect:firstResponderView.frame toView:self];
+    float offsetY = -(CGRectGetMaxY(frFrame)+CGRectGetHeight(rect)-[UIScreen mainScreen].bounds.size.height);
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:duration];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    self.baseSheet.transform = CGAffineTransformMakeTranslation(0, offsetY);
+    [UIView commitAnimations];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    NSDictionary *userInfo = notification.userInfo;
+    double duration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:duration];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    self.baseSheet.transform = CGAffineTransformIdentity;
+    [UIView commitAnimations];
+}
+
+
+- (UIView *)getFirstResponderView {
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    UIView *firstResponder = [keyWindow performSelector:@selector(firstResponder)];
+#pragma clang diagnostic pop
+    return firstResponder;
 }
 
 #pragma mark - set and get

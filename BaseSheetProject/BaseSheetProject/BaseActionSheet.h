@@ -17,5 +17,7 @@
 - (void)hidden;
 ///添加手势
 - (void)addGestrue;
+//添加监听
+- (void)addKeyboardNotificationObserver;
 
 @end
