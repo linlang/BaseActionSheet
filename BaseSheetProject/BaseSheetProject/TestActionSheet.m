@@ -43,9 +43,9 @@
     NSLayoutConstraint *tfTopConstraint = [NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.titleLab attribute:NSLayoutAttributeTop multiplier:1.0 constant:20.0];
      //父视图 baseSheet的底部约束需要子视图来确定
     NSLayoutConstraint *tfBottomConstraint = [NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.baseSheet attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-140.0];
-    NSLayoutConstraint *tfLeftConstraint = [NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.baseSheet attribute:NSLayoutAttributeLeft multiplier:1.0 constant:3.0];
+    NSLayoutConstraint *tfLeftConstraint = [NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.baseSheet attribute:NSLayoutAttributeLeft multiplier:1.0 constant:30.0];
    
-    NSLayoutConstraint *tfRightConstraint = [NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.baseSheet attribute:NSLayoutAttributeRight multiplier:1.0 constant:30.0];
+    NSLayoutConstraint *tfRightConstraint = [NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.baseSheet attribute:NSLayoutAttributeRight multiplier:1.0 constant:-30.0];
     NSLayoutConstraint *tfHeightConstraint = [NSLayoutConstraint constraintWithItem:self.textField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:45.0];
 
     NSArray *constraints = @[topConstraint,leftConstraint,rightConstraint,tfTopConstraint,tfBottomConstraint,tfLeftConstraint,tfRightConstraint,tfHeightConstraint];
