@@ -31,10 +31,10 @@
 
 - (void)showAction:(UIButton *)sender {
     TestActionSheet *sheet = [[TestActionSheet alloc] init];
-//    //添加监听键盘
-//    [sheet addKeyboardNotificationObserver];
-//    //添加手势
-//    [sheet addGestrue];
+    //添加监听键盘
+    [sheet addKeyboardNotificationObserver];
+    //添加手势
+    [sheet addGestrue];
     [sheet show];
 }
 
