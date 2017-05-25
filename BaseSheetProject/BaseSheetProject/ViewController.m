@@ -24,9 +24,6 @@
     [self.view addSubview:showBtn];
 }
 
-
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
